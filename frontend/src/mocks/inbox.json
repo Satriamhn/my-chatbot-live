@@ -1,0 +1,58 @@
+{
+  "conversations": [
+    {
+      "id": "conv-101",
+      "user": "Alice",
+      "lastMessage": "Thanks, that was helpful!",
+      "unread": 0,
+      "messages": [
+        {
+          "id": "msg-1",
+          "sender": "user",
+          "text": "How do I reset my password?",
+          "timestamp": "10:00 AM"
+        },
+        {
+          "id": "msg-2",
+          "sender": "bot",
+          "text": "To reset your password, go to the login page and click 'Forgot Password'.",
+          "timestamp": "10:01 AM",
+          "meta": {
+            "source": "Help Center FAQs",
+            "confidence": "98%"
+          }
+        },
+        {
+          "id": "msg-3",
+          "sender": "user",
+          "text": "Thanks, that was helpful!",
+          "timestamp": "10:05 AM"
+        }
+      ]
+    },
+    {
+      "id": "conv-102",
+      "user": "Bob",
+      "lastMessage": "I have an issue with my recent charge.",
+      "unread": 1,
+      "messages": [
+        {
+          "id": "msg-4",
+          "sender": "user",
+          "text": "I have an issue with my recent charge.",
+          "timestamp": "11:20 AM"
+        },
+        {
+          "id": "msg-5",
+          "sender": "bot",
+          "text": "I can help with billing issues. Can you provide the order ID?",
+          "timestamp": "11:21 AM",
+          "meta": {
+            "source": "Refund Policy",
+            "confidence": "85%"
+          }
+        }
+      ]
+    }
+  ]
+}

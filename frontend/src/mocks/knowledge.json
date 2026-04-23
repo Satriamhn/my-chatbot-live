@@ -1,0 +1,26 @@
+[
+  {
+    "id": "doc-001",
+    "name": "Refund Policy",
+    "sourceType": "File (PDF)",
+    "status": "Active",
+    "dateAdded": "2023-10-12",
+    "actions": ["edit", "delete"]
+  },
+  {
+    "id": "doc-002",
+    "name": "Help Center FAQs",
+    "sourceType": "URL Sync",
+    "status": "Processing",
+    "dateAdded": "2023-10-15",
+    "actions": ["edit", "delete"]
+  },
+  {
+    "id": "doc-003",
+    "name": "How to create an account",
+    "sourceType": "Manual Q&A",
+    "status": "Active",
+    "dateAdded": "2023-10-18",
+    "actions": ["edit", "delete"]
+  }
+]
