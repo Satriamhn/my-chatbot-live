@@ -38,7 +38,7 @@ func NewAIService(ctx context.Context) (AIService, error) {
 // NewGeminiService creates a Gemini AIService with a specific key and model.
 func NewGeminiService(ctx context.Context, apiKey, modelName string) (AIService, error) {
 	if apiKey == "" {
-		return nil, fmt.Errorf("Gemini API key is required")
+		return nil, fmt.Errorf("gemini API key is required")
 	}
 	modelName = normalizeGeminiModelName(modelName)
 

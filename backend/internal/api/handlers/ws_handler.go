@@ -41,7 +41,9 @@ type Client struct {
 
 func (c *Client) readPump(aiSvc services.AIService) {
 	defer func() {
-		c.conn.Close()
+		if err := c.conn.Close(); err != nil {
+			log.Printf("[WS] close connection error: %v", err)
+		}
 	}()
 	c.conn.SetReadLimit(maxMessageSize)
 	if err := c.conn.SetReadDeadline(time.Now().Add(pongWait)); err != nil {
@@ -223,7 +225,9 @@ func (c *Client) writePump() {
 	ticker := time.NewTicker(pingPeriod)
 	defer func() {
 		ticker.Stop()
-		c.conn.Close()
+		if err := c.conn.Close(); err != nil {
+			log.Printf("[WS] close connection error: %v", err)
+		}
 	}()
 	for {
 		select {

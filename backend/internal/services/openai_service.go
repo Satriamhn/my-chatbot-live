@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/sashabaranov/go-openai"
@@ -67,7 +68,11 @@ func (s *openAIService) StreamReply(
 	if err != nil {
 		return fmt.Errorf("openai stream error: %w", err)
 	}
-	defer stream.Close()
+	defer func() {
+		if err := stream.Close(); err != nil {
+			log.Printf("[OpenAI] stream close error: %v", err)
+		}
+	}()
 
 	for {
 		response, err := stream.Recv()
