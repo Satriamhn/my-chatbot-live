@@ -1,1 +1,0 @@
-- Adapt UI complete: Config, Knowledge Base, Inbox, API service, Contact. Build and lint passing.

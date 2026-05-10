@@ -1,0 +1,22 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Local AI/session artifacts
+.sisyphus/
+.cocoindex_code/
+
+# Generated reports and binaries
+frontend/playwright-report/
+backend/bin/
+backend/api.exe
+
+# Scratch helpers
+backend/scratch*.go
+
+# Node
+node_modules/
+
+# OS files
+.DS_Store

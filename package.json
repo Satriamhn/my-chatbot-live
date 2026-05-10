@@ -1,0 +1,10 @@
+{
+  "name": "my-chatbot-live-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint:all": "npm run lint --prefix frontend && cd backend && go vet ./...",
+    "test:all": "npm run test --prefix frontend --if-present && cd backend && go test ./...",
+    "build:all": "npm run build --prefix frontend && cd backend && go build -o bin/api ./cmd/api"
+  }
+}
