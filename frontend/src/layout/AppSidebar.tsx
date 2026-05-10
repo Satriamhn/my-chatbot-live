@@ -3,21 +3,16 @@ import { Link, useLocation } from "react-router";
 
 // Assume these icons are imported from an icon library
 import {
-  BoxCubeIcon,
-  CalenderIcon,
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
-  ListIcon,
-  PageIcon,
-  PieChartIcon,
   PlugInIcon,
-  TableIcon,
   UserCircleIcon,
   ChatIcon,
   MailIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
+import { useAuth } from "../context/AuthContext";
 import SidebarWidget from "./SidebarWidget";
 
 type NavItem = {
@@ -40,6 +35,7 @@ const navItems: NavItem[] = [
       { name: "Bot Settings", path: "/settings/bot", pro: false },
       { name: "Knowledge Base", path: "/knowledge", pro: false },
       { name: "Inbox", path: "/inbox", pro: false },
+      { name: "Live Widget", path: "/widget", pro: false, new: true },
     ],
   },
   {
@@ -67,6 +63,7 @@ const othersItems: NavItem[] = [
 
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
+  const { user } = useAuth();
   const location = useLocation();
 
   const [openSubmenu, setOpenSubmenu] = useState<{
@@ -176,7 +173,11 @@ const AppSidebar: React.FC = () => {
           ) : (
             nav.path && (
               <Link
-                to={nav.path}
+                to={
+                  nav.path === "/widget" && user?.org_id
+                    ? `/widget?org_id=${encodeURIComponent(user.org_id)}`
+                    : nav.path
+                }
                 className={`menu-item group ${
                   isActive(nav.path) ? "menu-item-active" : "menu-item-inactive"
                 }`}
@@ -213,7 +214,11 @@ const AppSidebar: React.FC = () => {
                 {nav.subItems.map((subItem) => (
                   <li key={subItem.name}>
                     <Link
-                      to={subItem.path}
+                      to={
+                        subItem.path === "/widget" && user?.org_id
+                          ? `/widget?org_id=${encodeURIComponent(user.org_id)}`
+                          : subItem.path
+                      }
                       className={`menu-dropdown-item ${
                         isActive(subItem.path)
                           ? "menu-dropdown-item-active"
@@ -304,7 +309,7 @@ const AppSidebar: React.FC = () => {
           )}
         </Link>
       </div>
-      <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
+      <div className="flex flex-1 flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
         <nav className="mb-6">
           <div className="flex flex-col gap-4">
             <div>
