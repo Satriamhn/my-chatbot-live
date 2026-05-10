@@ -1,0 +1,51 @@
+erDiagram
+    ORGANIZATION ||--o{ USER : has
+    ORGANIZATION ||--o{ BOT_SETTINGS : configures
+    ORGANIZATION ||--o{ KNOWLEDGE_BASE : owns
+    ORGANIZATION ||--o{ CHAT_SESSION : contains
+
+    USER ||--o{ CHAT_SESSION : participates_in
+    CHAT_SESSION ||--o{ MESSAGE : contains
+
+    ORGANIZATION {
+        uuid id PK
+        string name
+        timestamp created_at
+    }
+
+    USER {
+        uuid id PK
+        uuid organization_id FK
+        string role "admin, agent"
+        string email
+    }
+
+    BOT_SETTINGS {
+        uuid id PK
+        uuid organization_id FK
+        string system_prompt
+        float temperature
+    }
+
+    KNOWLEDGE_BASE {
+        uuid id PK
+        uuid organization_id FK
+        string name
+        string status
+    }
+
+    CHAT_SESSION {
+        uuid id PK
+        uuid organization_id FK
+        uuid user_id FK "Optional: assigned agent"
+        string session_token
+        string status "active, closed, handed_off"
+    }
+
+    MESSAGE {
+        uuid id PK
+        uuid chat_session_id FK
+        string sender_type "user, bot, agent"
+        text content
+        timestamp created_at
+    }

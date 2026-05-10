@@ -1,0 +1,36 @@
+flowchart TD
+    subgraph Client
+        A[User Client WebSocket]
+    end
+
+    subgraph API_Gateway["API Gateway / WebSocket Server"]
+        B{Incoming Message}
+    end
+
+    subgraph Chat_Service["Chat Service"]
+        C["Verify Tenant (organization_id)"]
+        D{"Human or Bot?"}
+        E[Route to Human Agent]
+        F[Route to Bot]
+    end
+
+    subgraph RAG_System["RAG System"]
+        G["Fetch BotSettings (by organization_id)"]
+        H["Search KnowledgeBases (by organization_id)"]
+        I[Assemble Prompt with Context]
+    end
+
+    subgraph LLM_Service["LLM Service"]
+        J[Generate Response]
+    end
+
+    A <-->|WebSocket| B
+    B --> C
+    C --> D
+    D -->|Human Agent| E
+    D -->|Bot| F
+    F --> G
+    G --> H
+    H --> I
+    I --> J
+    J -->|Stream chunks| B
