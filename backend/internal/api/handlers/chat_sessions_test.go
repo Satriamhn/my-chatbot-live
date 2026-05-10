@@ -38,7 +38,7 @@ func setupTestDB(t *testing.T) *gorm.DB {
 	newDB.Exec("DROP TABLE IF EXISTS organizations")
 	newDB.Exec("DROP TABLE IF EXISTS users")
 
-	newDB.AutoMigrate(&models.Organization{}, &models.User{}, &models.ChatSession{}, &models.Message{})
+	assert.NoError(t, newDB.AutoMigrate(&models.Organization{}, &models.User{}, &models.ChatSession{}, &models.Message{}))
 	db.DB = newDB
 	return newDB
 }
@@ -85,7 +85,7 @@ func TestChatSessionAPI(t *testing.T) {
 
 		assert.Equal(t, http.StatusCreated, w.Code)
 		var session models.ChatSession
-		json.Unmarshal(w.Body.Bytes(), &session)
+		assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &session))
 		assert.Equal(t, "Test Session", session.Title)
 		assert.Equal(t, orgID1, session.OrganizationID)
 	})

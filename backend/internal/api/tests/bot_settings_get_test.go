@@ -34,10 +34,10 @@ func setupBotSettingsTestDB(t *testing.T) {
 	testDB.Exec("DROP TABLE IF EXISTS bot_settings")
 	testDB.Exec("DROP TABLE IF EXISTS organizations")
 
-	testDB.AutoMigrate(
+	assert.NoError(t, testDB.AutoMigrate(
 		&models.Organization{},
 		&models.BotSetting{},
-	)
+	))
 	db.DB = testDB
 }
 
@@ -88,7 +88,7 @@ func TestGetBotSettings(t *testing.T) {
 
 		assert.Equal(t, http.StatusOK, w.Code)
 		var fullResponse handlers.FullBotSettingsResponse
-		json.Unmarshal(w.Body.Bytes(), &fullResponse)
+		assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &fullResponse))
 		assert.Equal(t, "Test Bot", fullResponse.BotName)
 		assert.Equal(t, "Welcome!", fullResponse.WelcomeMessage)
 		assert.Equal(t, "Be helpful.", fullResponse.SystemPrompt)

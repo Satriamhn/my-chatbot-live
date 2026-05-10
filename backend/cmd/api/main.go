@@ -122,5 +122,7 @@ func main() {
 	}
 
 	log.Printf("Server starting on :%s", port)
-	r.Run(":" + port)
+	if err := r.Run(":" + port); err != nil {
+		log.Fatalf("server stopped: %v", err)
+	}
 }

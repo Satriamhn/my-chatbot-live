@@ -42,7 +42,7 @@ func TestUpdateBotSettings(t *testing.T) {
 
 		assert.Equal(t, http.StatusOK, w.Code)
 		var response handlers.FullBotSettingsResponse
-		json.Unmarshal(w.Body.Bytes(), &response)
+		assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &response))
 		assert.Equal(t, payload.BotName, response.BotName)
 		assert.Equal(t, payload.AIProvider, response.AIProvider)
 		assert.Equal(t, payload.ModelName, response.ModelName)
@@ -74,7 +74,7 @@ func TestUpdateBotSettings(t *testing.T) {
 
 		assert.Equal(t, http.StatusOK, w.Code)
 		var response handlers.FullBotSettingsResponse
-		json.Unmarshal(w.Body.Bytes(), &response)
+		assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &response))
 		assert.Equal(t, payload.BotName, response.BotName)
 		assert.Equal(t, payload.AIProvider, response.AIProvider)
 		assert.Equal(t, payload.ModelName, response.ModelName)
@@ -95,7 +95,7 @@ func TestUpdateBotSettings(t *testing.T) {
 
 		assert.Equal(t, http.StatusOK, getW.Code)
 		var getResponse handlers.FullBotSettingsResponse
-		json.Unmarshal(getW.Body.Bytes(), &getResponse)
+		assert.NoError(t, json.Unmarshal(getW.Body.Bytes(), &getResponse))
 		assert.Equal(t, payload.AIProvider, getResponse.AIProvider)
 		assert.Equal(t, payload.ModelName, getResponse.ModelName)
 	})

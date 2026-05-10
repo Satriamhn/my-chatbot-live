@@ -36,11 +36,11 @@ func setupTestDB(t *testing.T) {
 	testDB.Exec("DROP TABLE IF EXISTS knowledge_bases")
 	testDB.Exec("DROP TABLE IF EXISTS organizations")
 
-	testDB.AutoMigrate(
+	assert.NoError(t, testDB.AutoMigrate(
 		&models.Organization{},
 		&models.KnowledgeBase{},
 		&models.KnowledgeBaseItem{},
-	)
+	))
 	db.DB = testDB
 }
 
@@ -105,7 +105,7 @@ func TestKnowledgeBaseAPI(t *testing.T) {
 
 		assert.Equal(t, http.StatusCreated, w.Code)
 		var response models.KnowledgeBaseItem
-		json.Unmarshal(w.Body.Bytes(), &response)
+		assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &response))
 		assert.Equal(t, "url", response.Type)
 		assert.Equal(t, "queued", response.Status)
 	})
@@ -148,7 +148,7 @@ func TestKnowledgeBaseAPI(t *testing.T) {
 
 		assert.Equal(t, http.StatusOK, w.Code)
 		var response models.KnowledgeBaseItem
-		json.Unmarshal(w.Body.Bytes(), &response)
+		assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &response))
 		assert.Equal(t, "ready", response.Status)
 	})
 
